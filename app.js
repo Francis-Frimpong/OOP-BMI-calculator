@@ -47,6 +47,7 @@ class BMIApp {
 
     // Updating UI
     this.resultElement[0].textContent = `BMI: ${bMI.calculate()}`;
+
     this.resultElement[1].textContent = `Category: ${bMI.getCategory()}`;
   }
 }
