@@ -10,20 +10,54 @@ class BMI {
   }
 
   getCategory() {
-    const bmiResult = this.calculate();
+    let bmiResult = this.calculate();
 
     if (bmiResult < 18.5) {
-      console.log("Underweight");
+      return "Underweight";
     } else if (bmiResult >= 18.5 && bmiResult < 25) {
-      console.log("Normal Weight");
+      return "Normal Weight";
     } else if (bmiResult >= 25 && bmiResult < 30) {
-      console.log("Overweight");
+      return "Overweight";
     } else {
-      console.log("Obese");
+      return "Obese";
     }
   }
 }
 
-const jonesBmi = new BMI(90, 1.75);
-console.log(jonesBmi.calculate());
-jonesBmi.getCategory();
+class BMIApp {
+  constructor(weightInput, heightInput, resultElement) {
+    this.weightInput = weightInput;
+    this.heightInput = heightInput;
+    this.resultElement = resultElement;
+  }
+
+  handleSubmit() {
+    const weightValue = Number(this.weightInput.value);
+    const heightValue = Number(this.heightInput.value);
+
+    //  basic input validation to avoid NaN
+    if (isNaN(weightValue) || isNaN(heightValue) || heightValue <= 0) {
+      this.resultElement[0].textContent = "BMI: Invalid input";
+      this.resultElement[1].textContent = "";
+      return;
+    }
+
+    let bMI = new BMI(weightValue, heightValue);
+    this.resultElement[0].textContent = `BMI: ${bMI.calculate()}`;
+    this.resultElement[1].textContent = `Category: ${bMI.getCategory()}`;
+  }
+}
+
+const weight = document.getElementById("weight");
+const height = document.getElementById("height");
+
+const bmiResult = document.getElementById("bmiResult");
+const bmiCategory = document.getElementById("bmiCategory");
+
+// BMI App class instance
+const bmiApp = new BMIApp(weight, height, [bmiResult, bmiCategory]);
+const calculateBMI = document.getElementById("calculateBMI");
+
+calculateBMI.addEventListener("click", () => bmiApp.handleSubmit());
+
+// jonesBmi.handleSubmit();
