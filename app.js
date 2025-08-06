@@ -45,6 +45,7 @@ class BMIApp {
     // BMI class instance
     let bMI = new BMI(weightValue, heightValue);
 
+    // Updating UI
     this.resultElement[0].textContent = `BMI: ${bMI.calculate()}`;
     this.resultElement[1].textContent = `Category: ${bMI.getCategory()}`;
   }
